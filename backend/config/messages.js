@@ -4,6 +4,11 @@ module.exports = {
     message: "Authentication failed. Please login with valid credentials.",
     success: false,
   },
+  ACCOUNT_CREATED: {
+    code: 200,
+    message: "Account created successfully",
+    success: true,
+  },
   SUCCESSFUL_LOGIN: {
     code: 200,
     message: "Successfully logged in",
@@ -52,6 +57,11 @@ module.exports = {
   BAD_REQUEST: {
     code: 400,
     message: "Bad request. Please try again with valid parameters",
+    success: false,
+  },
+  CONFLICT: {
+    code: 409,
+    message: "User already exists",
     success: false,
   },
   IN_COMPLETE_REQUEST: {

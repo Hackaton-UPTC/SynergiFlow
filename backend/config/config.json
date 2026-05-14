@@ -1,10 +1,14 @@
 {
   "test":{
     "PORT": 3000,
-    "MONGODB_URI": "mongodb://mongo:27017/TodoAppTest"
+    "MONGODB_URI": "mongodb://mongo:27017/SynergiFlowTest",
+    "JWT_SECRET": "synergiflow-test-secret",
+    "JWT_EXPIRES_IN": "12h"
   },
   "development":{
     "PORT": 3000,
-    "MONGODB_URI": "mongodb://mongo:27017/TodoApp"
+    "MONGODB_URI": "mongodb://mongo:27017/SynergiFlow",
+    "JWT_SECRET": "synergiflow-dev-secret",
+    "JWT_EXPIRES_IN": "12h"
   }
 }
