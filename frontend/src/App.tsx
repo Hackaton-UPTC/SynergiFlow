@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { AuthLogin } from './components/AuthLogin';
-import Onboarding from './components/Onboarding.jsx';
+import Onboarding from './components/Onboarding';
 import { LoadingScreen } from './components/LoadingScreen';
-import './index.css';
+import Dashboard from './pages/Dashboard';
+import './index.scss';
 import './App.scss';
 
+type Step = 'loading' | 'login' | 'onboarding' | 'dashboard';
+
 export default function App() {
-  const [step, setStep] = useState<'loading' | 'login' | 'onboarding'>('loading');
+  const [step, setStep] = useState<Step>('loading');
 
   if (step === 'loading') {
     return <LoadingScreen onComplete={() => setStep('login')} />;
@@ -16,5 +19,9 @@ export default function App() {
     return <AuthLogin onSuccess={() => setStep('onboarding')} />;
   }
 
-  return <Onboarding onComplete={() => setStep('login')} />;
+  if (step === 'onboarding') {
+    return <Onboarding onComplete={() => setStep('dashboard')} />;
+  }
+
+  return <Dashboard />;
 }

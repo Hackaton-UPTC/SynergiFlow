@@ -1,20 +1,18 @@
 import React, { useMemo, useState } from 'react';
 import axios from 'axios';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Angry, CheckCircle2, Eye, EyeOff, Frown, Loader2, LogIn, Meh, Shield, Smile, UserPlus } from 'lucide-react';
-import { EscapingButton } from './EscapingButton';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, Eye, EyeOff, LogIn, UserPlus, CheckCircle2, Loader2, Smile, Frown, Angry, Meh } from 'lucide-react';
+import { EscapingButton } from '../components/EscapingButton';
 
-type AuthMode = 'login' | 'register';
-
-interface AuthLoginProps {
-  onSuccess?: () => void;
+interface LoginProps {
+  onLoginSuccess: (session: { username: string; token: string }) => void;
 }
 
-export function AuthLogin({ onSuccess }: AuthLoginProps) {
+export default function Login({ onLoginSuccess }: LoginProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [mode, setMode] = useState<AuthMode>('login');
+  const [mode, setMode] = useState<'login' | 'register'>('login');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [mood, setMood] = useState<string | null>(null);
@@ -33,14 +31,14 @@ export function AuthLogin({ onSuccess }: AuthLoginProps) {
     { name: 'Neutral', label: 'Neutral', icon: <Meh className="w-8 h-8" />, color: 'bg-amber-400' },
   ];
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setSuccess('');
 
     if (!canSubmit) {
       setErrorFlash(true);
-      setShakeKey((value) => value + 1);
-      window.setTimeout(() => setErrorFlash(false), 700);
+      setShakeKey((v) => v + 1);
+      setTimeout(() => setErrorFlash(false), 700);
       return;
     }
 
@@ -53,27 +51,20 @@ export function AuthLogin({ onSuccess }: AuthLoginProps) {
       });
 
       const payload = response.data?.data;
+      const nextSession = { username: payload.user.username, token: payload.token };
 
       if (mode === 'register') {
-        if (payload?.token && payload?.user?.username) {
-          const nextSession = { username: payload.user.username, token: payload.token };
-          localStorage.setItem('synergiflow.session', JSON.stringify(nextSession));
-        }
         setSuccess('Cuenta creada. Accediendo al vacío...');
-        setTimeout(() => onSuccess?.(), 1500);
+        setTimeout(() => onLoginSuccess(nextSession), 1500);
       } else {
-        if (payload?.token && payload?.user?.username) {
-          const nextSession = { username: payload.user.username, token: payload.token };
-          localStorage.setItem('synergiflow.session', JSON.stringify(nextSession));
-        }
         setSuccess(`Bienvenido de nuevo, ${payload?.user?.username ?? username.trim()}.`);
-        setTimeout(() => onSuccess?.(), 1000);
+        setTimeout(() => onLoginSuccess(nextSession), 1000);
       }
     } catch (err) {
-      console.error("Error de Autenticación:", err);
+      console.error("Auth Error:", err);
       setErrorFlash(true);
-      setShakeKey((value) => value + 1);
-      window.setTimeout(() => setErrorFlash(false), 700);
+      setShakeKey((v) => v + 1);
+      setTimeout(() => setErrorFlash(false), 700);
     } finally {
       setLoading(false);
     }
@@ -134,7 +125,7 @@ export function AuthLogin({ onSuccess }: AuthLoginProps) {
                   className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all placeholder:text-text-disabled"
                   placeholder="ej. el_elegido"
                   value={username}
-                  onChange={(event) => setUsername(event.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
 
@@ -148,7 +139,7 @@ export function AuthLogin({ onSuccess }: AuthLoginProps) {
                     className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-14 font-mono text-primary-light"
                     placeholder="••••••••"
                     value={password}
-                    onChange={(event) => setPassword(event.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <button
                     type="button"

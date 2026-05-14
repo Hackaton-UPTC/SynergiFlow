@@ -18,23 +18,35 @@ export const UselessChart: React.FC = () => {
         <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="colorSyn" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+              <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0}/>
             </linearGradient>
             <linearGradient id="colorDread" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#f43f5e" stopOpacity={0}/>
+              <stop offset="5%" stopColor="var(--color-error-red)" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="var(--color-error-red)" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#94a3b8' }} />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border-soft)" />
+          <XAxis 
+            dataKey="name" 
+            axisLine={false} 
+            tickLine={false} 
+            tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} 
+          />
           <YAxis hide />
           <Tooltip 
-            contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-            labelStyle={{ fontWeight: 'bold', color: '#1e293b' }}
+            contentStyle={{ 
+              backgroundColor: 'var(--color-bg-main)', 
+              borderRadius: '16px', 
+              border: '1px solid var(--color-border-soft)', 
+              boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.5)',
+              color: 'var(--color-text-main)'
+            }}
+            itemStyle={{ color: 'var(--color-text-main)' }}
+            labelStyle={{ fontWeight: 'bold', color: 'var(--color-primary)' }}
           />
-          <Area type="monotone" dataKey="synergy" stroke="#6366f1" fillOpacity={1} fill="url(#colorSyn)" />
-          <Area type="monotone" dataKey="dread" stroke="#f43f5e" fillOpacity={1} fill="url(#colorDread)" />
+          <Area type="monotone" dataKey="synergy" stroke="var(--color-primary)" fillOpacity={1} fill="url(#colorSyn)" strokeWidth={3} />
+          <Area type="monotone" dataKey="dread" stroke="var(--color-error-red)" fillOpacity={1} fill="url(#colorDread)" strokeWidth={3} />
         </AreaChart>
       </ResponsiveContainer>
     </div>

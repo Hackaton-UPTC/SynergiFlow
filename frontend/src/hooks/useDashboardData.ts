@@ -3,55 +3,36 @@ import { AbsurdMetric, AbsurdActivity, PopupMessage } from '../types/dashboard';
 
 export const useDashboardData = () => {
   const [metrics, setMetrics] = useState<AbsurdMetric[]>([
-    { title: 'Synergy Score', value: '84.2', change: '+12.5%', trend: 'up', unit: 'Pts' },
-    { title: 'Alignment Velocity', value: '0.0042', change: '-2%', trend: 'down', unit: 'm/s²' },
-    { title: 'Stakeholder Happiness', value: 'Cloudy', change: '±0', trend: 'chaotic' },
-    { title: 'Corporate Buzzwords/min', value: '148', change: '+45%', trend: 'up' },
+    { title: 'Puntaje de Sinergia', value: '94.2', unit: 'SYN', change: '+5.4%', trend: 'up' },
+    { title: 'Velocidad de Alineación', value: '12.8', unit: 'm/s²', change: '-2.1%', trend: 'down' },
+    { title: 'Quórum de Stakeholders', value: '0.004', unit: 'QRM', change: '+0.1%', trend: 'up' },
+    { title: 'Pavor Existencial', value: '88', unit: 'DREAD', change: '+14%', trend: 'up' },
   ]);
 
-  const [activities, setActivities] = useState<AbsurdActivity[]>([
-    { id: '1', title: 'Paradigm Shift Detected', description: 'Someone used the word "leveraging" twice in a row.', time: '2m ago', importance: 'high' },
-    { id: '2', title: 'Synergy Leak', description: 'Minor synergy loss in the coffee machine area.', time: '15m ago', importance: 'nonsense' },
-    { id: '3', title: 'Cloud Vaporization', description: 'A server turned into a metaphorical cloud.', time: '1h ago', importance: 'low' },
+  const [activities] = useState<AbsurdActivity[]>([
+    { id: '1', title: 'Alineación de Paradigma', description: 'Se ha forzado una nueva visión sobre el equipo de diseño.', time: 'Hace 2 min', importance: 'high' },
+    { id: '2', title: 'Evento de Sinergia Crítica', description: 'Niveles de café por debajo del umbral corporativo.', time: 'Hace 15 min', importance: 'high' },
+    { id: '3', title: 'Actualización de Vaporware', description: 'El módulo "Felicidad del Cliente" ha sido renombrado a "Métrica de Retención".', time: 'Hace 1 hora', importance: 'nonsense' },
+    { id: '4', title: 'Fuga de Optimismo', description: 'Se detectó un empleado sonriendo sin autorización previa.', time: 'Hace 3 horas', importance: 'low' },
   ]);
 
   const [popups, setPopups] = useState<PopupMessage[]>([]);
 
-  // Randomly update metrics to look "busy"
   useEffect(() => {
     const interval = setInterval(() => {
-      setMetrics(prev => prev.map(m => ({
-        ...m,
-        value: typeof m.value === 'number' ? (parseFloat(m.value as any) + (Math.random() - 0.5)).toFixed(2) : m.value
-      })));
-    }, 3000);
+      if (Math.random() > 0.7 && popups.length < 5) {
+        const newPopup: PopupMessage = {
+          id: Math.random().toString(),
+          title: 'ALERTA DE CUMPLIMIENTO',
+          content: '¿Has alineado tus chakras corporativos hoy? El no hacerlo puede resultar en una reducción de tu cuota de oxígeno.',
+          type: 'urgent',
+        };
+        setPopups(prev => [...prev, newPopup]);
+      }
+    }, 5000);
+
     return () => clearInterval(interval);
-  }, []);
-
-  // Randomly trigger annoying popups
-  useEffect(() => {
-    const triggerPopup = () => {
-      const messages = [
-        "Your alignment is decreasing! Click to fix.",
-        "A stakeholder is looking at you. Smile!",
-        "Warning: Too much productivity detected.",
-        "Update available for your corporate soul."
-      ];
-      const newPopup = {
-        id: Math.random().toString(),
-        title: "CRITICAL ALERT",
-        content: messages[Math.floor(Math.random() * messages.length)],
-        type: 'annoying' as const
-      };
-      setPopups(prev => [...prev, newPopup]);
-      
-      // Schedule next one
-      setTimeout(triggerPopup, Math.random() * 15000 + 10000);
-    };
-
-    const timer = setTimeout(triggerPopup, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  }, [popups]);
 
   const closePopup = (id: string) => {
     setPopups(prev => prev.filter(p => p.id !== id));
