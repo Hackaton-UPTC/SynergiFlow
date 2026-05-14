@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Angry, CheckCircle2, Eye, EyeOff, Frown, Loader2, LogIn, Meh, Shield, Smile, UserPlus } from 'lucide-react';
 import { EscapingButton } from './EscapingButton';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000';
+
 type AuthMode = 'login' | 'register';
 
 interface AuthLoginProps {
@@ -46,7 +48,7 @@ export function AuthLogin({ onSuccess }: AuthLoginProps) {
 
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/api/auth', {
+      const response = await axios.post(`${API_BASE_URL}/api/auth`, {
         action: mode,
         username: username.trim(),
         password,

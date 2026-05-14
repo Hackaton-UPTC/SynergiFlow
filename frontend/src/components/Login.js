@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 function Login({ onSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +24,7 @@ function Login({ onSuccess }) {
 
     try {
       setLoginLoading(true);
-      const response = await axios.post("http://localhost:3000/api/auth", {
+      const response = await axios.post(`${API_BASE_URL}/api/auth`, {
         action: "login",
         username: username.trim(),
         password,

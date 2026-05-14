@@ -6,7 +6,23 @@ const db = require("./db");
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = (process.env.FRONTEND_ORIGIN || process.env.FRONTEND_ORIGINS || "http://localhost:4000")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+  })
+);
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: false }));
 
