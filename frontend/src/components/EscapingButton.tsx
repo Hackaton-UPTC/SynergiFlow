@@ -54,13 +54,15 @@ export const EscapingButton: React.FC<EscapingButtonProps> = ({ children, isVali
     if (distance < 200) {
       if (!isFixed) setIsFixed(true);
 
-      const padding = 100;
-      const targetX = Math.random() * (window.innerWidth - padding * 2) + padding;
-      const targetY = Math.random() * (window.innerHeight - padding * 2) + padding;
+      const padding = 24;
+      const maxX = Math.max(padding, window.innerWidth / 2 - rect.width / 2 - padding);
+      const maxY = Math.max(padding, window.innerHeight / 2 - rect.height / 2 - padding);
+      const targetX = (Math.random() * 2 - 1) * maxX;
+      const targetY = (Math.random() * 2 - 1) * maxY;
 
       setPos({ 
-        x: targetX - window.innerWidth / 2, 
-        y: targetY - window.innerHeight / 2 
+        x: targetX, 
+        y: targetY 
       });
       
       const colors = ['bg-red-500', 'bg-emerald-500', 'bg-violet-500', 'bg-fuchsia-500', 'bg-amber-500', 'bg-sky-500'];
@@ -88,7 +90,7 @@ export const EscapingButton: React.FC<EscapingButtonProps> = ({ children, isVali
         }}
         transition={{ type: "spring", stiffness: isExhausted ? 50 : 600, damping: 20 }}
         className={cn(
-          "px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-lg shadow-2xl transition-colors duration-500 z-[9999] border-4 border-white/20",
+          "px-6 sm:px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-sm sm:text-lg shadow-2xl transition-colors duration-500 z-[9999] border-4 border-white/20 max-w-[calc(100vw-2rem)]",
           isExhausted ? "bg-slate-700 cursor-pointer" : color,
           "text-white whitespace-nowrap",
           isFixed && "fixed"

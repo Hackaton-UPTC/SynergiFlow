@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AuthLogin } from './components/AuthLogin';
-import Onboarding from './components/Onboarding.jsx';
+import Onboarding from './components/Onboarding';
 import { LoadingScreen } from './components/LoadingScreen';
 import Dashboard from './pages/Dashboard';
 import './index.scss';
