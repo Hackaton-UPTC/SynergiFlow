@@ -32,7 +32,7 @@ function Onboarding({ onComplete }) {
     }
 
     if (onboardingStep >= 3) {
-      onComplete();
+      onComplete?.();
       return;
     }
 

@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { AuthLogin } from './components/AuthLogin';
+import Onboarding from './components/Onboarding.jsx';
 import { LoadingScreen } from './components/LoadingScreen';
 import './index.css';
 import './App.scss';
 
 export default function App() {
-  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+  const [step, setStep] = useState<'loading' | 'login' | 'onboarding'>('loading');
 
-  if (!isLoadingComplete) {
-    return <LoadingScreen onComplete={() => setIsLoadingComplete(true)} />;
+  if (step === 'loading') {
+    return <LoadingScreen onComplete={() => setStep('login')} />;
   }
 
-  return <AuthLogin />;
+  if (step === 'login') {
+    return <AuthLogin onSuccess={() => setStep('onboarding')} />;
+  }
+
+  return <Onboarding onComplete={() => setStep('login')} />;
 }

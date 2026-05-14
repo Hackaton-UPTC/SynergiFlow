@@ -6,7 +6,11 @@ import { EscapingButton } from './EscapingButton';
 
 type AuthMode = 'login' | 'register';
 
-export function AuthLogin() {
+interface AuthLoginProps {
+  onSuccess?: () => void;
+}
+
+export function AuthLogin({ onSuccess }: AuthLoginProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -61,6 +65,7 @@ export function AuthLogin() {
           const nextSession = { username: payload.user.username, token: payload.token };
           setSession(nextSession);
           localStorage.setItem('synergiflow.session', JSON.stringify(nextSession));
+          onSuccess?.();
         }
         setSuccess(`Welcome back, ${payload?.user?.username ?? username.trim()}.`);
       }
