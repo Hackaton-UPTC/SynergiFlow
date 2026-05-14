@@ -21,11 +21,12 @@ export default function App() {
   const [shakeKey, setShakeKey] = useState(0);
 
   const canSubmit = useMemo(() => username.trim().length >= 3 && password.length >= 6 && mood === 'Happy' && !loading, [username, password, mood, loading]);
+  
   const moods = [
-    { name: 'Happy', icon: <Smile className="w-8 h-8" />, color: 'bg-emerald-400' },
-    { name: 'Sad', icon: <Frown className="w-8 h-8" />, color: 'bg-sky-400' },
-    { name: 'Angry', icon: <Angry className="w-8 h-8" />, color: 'bg-rose-400' },
-    { name: 'Neutral', icon: <Meh className="w-8 h-8" />, color: 'bg-amber-400' },
+    { name: 'Happy', label: 'Feliz', icon: <Smile className="w-8 h-8" />, color: 'bg-emerald-400' },
+    { name: 'Sad', label: 'Triste', icon: <Frown className="w-8 h-8" />, color: 'bg-sky-400' },
+    { name: 'Angry', label: 'Enojado', icon: <Angry className="w-8 h-8" />, color: 'bg-rose-400' },
+    { name: 'Neutral', label: 'Neutral', icon: <Meh className="w-8 h-8" />, color: 'bg-amber-400' },
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,17 +54,17 @@ export default function App() {
         const nextSession = { username: payload.user.username, token: payload.token };
         setSession(nextSession);
         localStorage.setItem('synergiflow.session', JSON.stringify(nextSession));
-        setSuccess('Account created. Accessing the void...');
+        setSuccess('Cuenta creada. Accediendo al vacío...');
       } else {
         if (payload?.token && payload?.user?.username) {
           const nextSession = { username: payload.user.username, token: payload.token };
           setSession(nextSession);
           localStorage.setItem('synergiflow.session', JSON.stringify(nextSession));
         }
-        setSuccess(`Welcome back, ${payload?.user?.username ?? username.trim()}.`);
+        setSuccess(`Bienvenido de nuevo, ${payload?.user?.username ?? username.trim()}.`);
       }
     } catch (err) {
-      console.error("Auth Error:", err);
+      console.error("Error de Autenticación:", err);
       setErrorFlash(true);
       setShakeKey((value) => value + 1);
       window.setTimeout(() => setErrorFlash(false), 700);
@@ -100,7 +101,7 @@ export default function App() {
               <Shield className="w-8 h-8 text-white" />
             </motion.div>
             <h1 className="text-4xl font-black tracking-tighter text-white mb-2 italic">SYNERGIFLOW</h1>
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted">High-Friction Auth Protocol</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted">Protocolo de Autenticación de Alta Fricción</p>
           </header>
 
           <div className="grid grid-cols-2 gap-2 mb-6 p-1 rounded-2xl bg-black/20 border border-border-soft">
@@ -109,41 +110,41 @@ export default function App() {
               onClick={() => setMode('login')}
               className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-black uppercase tracking-[0.3em] transition-colors ${mode === 'login' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-text-muted hover:text-text-main'}`}
             >
-              <LogIn size={14} /> Login
+              <LogIn size={14} /> Entrar
             </button>
             <button
               type="button"
               onClick={() => setMode('register')}
               className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-black uppercase tracking-[0.3em] transition-colors ${mode === 'register' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-text-muted hover:text-text-main'}`}
             >
-              <UserPlus size={14} /> Register
+              <UserPlus size={14} /> Registro
             </button>
           </div>
 
           <form id="auth-form" onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-6">
               <div className="group">
-                <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1 block mb-2 group-focus-within:text-primary transition-colors">Username</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1 block mb-2 group-focus-within:text-primary transition-colors">Nombre de Usuario</label>
                 <input
                   type="text"
                   required
                   autoComplete="username"
                   className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all placeholder:text-text-disabled"
-                  placeholder="alex"
+                  placeholder="ej. el_elegido"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
 
               <div className="group relative">
-                <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1 block mb-2 group-focus-within:text-primary transition-colors">Password</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1 block mb-2 group-focus-within:text-primary transition-colors">Clave Arcana</label>
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
                     autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                     className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-14 font-mono text-primary-light"
-                    placeholder="123456"
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -159,8 +160,8 @@ export default function App() {
 
               <div className="space-y-4">
                 <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Mood check</label>
-                  <p className="text-[11px] text-slate-400 italic">Select Happy to continue</p>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-text-muted">Control de Humor</label>
+                  <p className="text-[11px] text-text-disabled italic">Selecciona 'Feliz' para continuar</p>
                 </div>
                 <div className="grid grid-cols-4 gap-3">
                   {moods.map((item) => (
@@ -175,14 +176,15 @@ export default function App() {
                       }`}
                     >
                       <div className={`p-2 rounded-xl text-white transition-transform duration-500 group-hover:scale-110 ${item.color}`}>{item.icon}</div>
+                      <span className="text-[8px] font-black uppercase tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">{item.label}</span>
                     </motion.button>
                   ))}
                 </div>
               </div>
             </div>
 
-            <EscapingButton isValid={canSubmit} form="auth-form">
-              {loading ? <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> Working</span> : mode === 'login' ? 'Login' : 'Register'}
+            <EscapingButton isValid={canSubmit} type="submit">
+              {loading ? <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> Procesando</span> : mode === 'login' ? 'Autenticar Alma' : 'Crear Destino'}
             </EscapingButton>
 
             <AnimatePresence>
@@ -196,16 +198,10 @@ export default function App() {
               )}
             </AnimatePresence>
           </form>
-
-          {session && (
-            <div className="mt-6 p-4 rounded-2xl border border-slate-800 bg-slate-950/50 text-xs text-slate-400">
-              Logged in as <span className="text-slate-200 font-semibold">{session.username}</span>
-            </div>
-          )}
         </div>
 
         <footer className="mt-8 text-center">
-          <p className="text-[9px] text-slate-600 uppercase tracking-[0.5em] font-medium">Minimal auth by SynergiFlow</p>
+          <p className="text-[9px] text-text-disabled uppercase tracking-[0.5em] font-medium">Diseñado para la incomodidad por Antigravity</p>
         </footer>
       </motion.main>
     </div>

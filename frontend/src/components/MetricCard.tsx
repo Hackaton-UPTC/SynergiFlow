@@ -38,7 +38,7 @@ export const MetricCard: React.FC<{ metric: AbsurdMetric }> = ({ metric }) => {
            metric.trend === 'down' ? <TrendingDown size={12} /> : <HelpCircle size={12} />}
           {metric.change}
         </div>
-        <span className="text-[10px] text-slate-400 font-medium">Since last syncopation</span>
+        <span className="text-[10px] text-text-muted font-medium">Desde la última sincopación</span>
       </div>
     </motion.div>
   );

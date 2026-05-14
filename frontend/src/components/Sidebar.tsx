@@ -11,7 +11,7 @@ function cn(...inputs: any[]) {
 export const Sidebar: React.FC = () => {
   return (
     <aside className="w-72 bg-bg-main text-text-muted p-8 flex flex-col border-r border-border-soft relative overflow-hidden">
-      {/* Decorative accent */}
+      {/* Acento decorativo */}
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-primary/20 rounded-full blur-[80px]" />
       
       <div className="flex items-center gap-3 mb-12 relative z-10">
@@ -22,13 +22,13 @@ export const Sidebar: React.FC = () => {
       </div>
 
       <nav className="flex flex-col gap-2 relative z-10">
-        <NavItem icon={<Home size={20} />} label="Overview" active />
-        <NavItem icon={<Users size={20} />} label="Stakeholders" />
-        <NavItem icon={<Target size={20} />} label="Alignments" />
+        <NavItem icon={<Home size={20} />} label="Vista General" active />
+        <NavItem icon={<Users size={20} />} label="Involucrados" />
+        <NavItem icon={<Target size={20} />} label="Alineaciones" />
         <NavItem icon={<BarChart2 size={20} />} label="Vaporware" />
-        <NavItem icon={<Coffee size={20} />} label="Synergy Breaks" />
+        <NavItem icon={<Coffee size={20} />} label="Pausas Sinergia" />
         <div className="my-4 border-t border-border-soft" />
-        <NavItem icon={<Settings size={20} />} label="Quantum Config" />
+        <NavItem icon={<Settings size={20} />} label="Config. Cuántica" />
       </nav>
 
       <div className="mt-auto pt-8 border-t border-border-soft relative z-10">
@@ -38,12 +38,15 @@ export const Sidebar: React.FC = () => {
           </div>
           <div>
             <p className="text-xs font-black text-white uppercase tracking-widest">Admin Prime</p>
-            <p className="text-[10px] text-text-muted font-medium">Level 99 Synergy</p>
+            <p className="text-[10px] text-text-muted font-medium">Nivel 99 Sinergia</p>
           </div>
         </div>
-        <button className="flex items-center gap-2 text-chaos-red hover:text-chaos-red/80 transition-colors font-bold text-xs">
+        <button 
+          onClick={() => window.location.reload()} // Acción simple para demo
+          className="flex items-center gap-2 text-chaos-red hover:text-chaos-red/80 transition-colors font-bold text-xs uppercase tracking-widest"
+        >
           <LogOut size={16} />
-          <span>ABANDON SHIP</span>
+          <span>ABANDONAR BARCO</span>
         </button>
       </div>
     </aside>

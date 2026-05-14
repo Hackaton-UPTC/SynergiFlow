@@ -37,7 +37,7 @@ export const AnnoyingPopup: React.FC<AnnoyingPopupProps> = ({ popup, onClose }) 
         onClick={() => onClose(popup.id)}
         className="w-full py-3 bg-primary hover:bg-primary-light rounded-xl font-bold text-xs transition-all active:scale-95"
       >
-        I ACKNOWLEDGE THE VOID
+        RECONOZCO EL VACÍO
       </button>
     </motion.div>
   );
