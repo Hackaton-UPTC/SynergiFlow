@@ -37,5 +37,3 @@
   },
   "proxy": "http://backend:3000"
 }
-
-}
