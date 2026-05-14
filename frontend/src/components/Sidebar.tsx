@@ -8,9 +8,16 @@ function cn(...inputs: any[]) {
   return twMerge(clsx(inputs));
 }
 
-export const Sidebar: React.FC = () => {
+type TabId = 'overview' | 'stakeholders' | 'alignments' | 'vaporware' | 'breaks' | 'config';
+
+interface SidebarProps {
+  activeTab: TabId;
+  onTabChange: (tab: TabId) => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
   return (
-    <aside className="w-72 bg-bg-main text-text-muted p-8 flex flex-col border-r border-border-soft relative overflow-hidden">
+    <aside className="w-72 bg-bg-main text-text-muted p-8 flex flex-col border-r border-border-soft relative overflow-hidden h-screen sticky top-0">
       {/* Acento decorativo */}
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-primary/20 rounded-full blur-[80px]" />
       
@@ -21,14 +28,46 @@ export const Sidebar: React.FC = () => {
         <h1 className="text-xl font-black text-white tracking-tighter italic">SYNERGIFLOW</h1>
       </div>
 
-      <nav className="flex flex-col gap-2 relative z-10">
-        <NavItem icon={<Home size={20} />} label="Vista General" active />
-        <NavItem icon={<Users size={20} />} label="Involucrados" />
-        <NavItem icon={<Target size={20} />} label="Alineaciones" />
-        <NavItem icon={<BarChart2 size={20} />} label="Vaporware" />
-        <NavItem icon={<Coffee size={20} />} label="Pausas Sinergia" />
+      <nav className="flex flex-col gap-2 relative z-10 flex-1">
+        <NavItem 
+          icon={<Home size={20} />} 
+          label="Vista General" 
+          active={activeTab === 'overview'} 
+          onClick={() => onTabChange('overview')} 
+        />
+        <NavItem 
+          icon={<Users size={20} />} 
+          label="Involucrados" 
+          active={activeTab === 'stakeholders'} 
+          onClick={() => onTabChange('stakeholders')} 
+        />
+        <NavItem 
+          icon={<Target size={20} />} 
+          label="Alineaciones" 
+          active={activeTab === 'alignments'} 
+          onClick={() => onTabChange('alignments')} 
+        />
+        <NavItem 
+          icon={<BarChart2 size={20} />} 
+          label="Vaporware" 
+          active={activeTab === 'vaporware'} 
+          onClick={() => onTabChange('vaporware')} 
+        />
+        <NavItem 
+          icon={<Coffee size={20} />} 
+          label="Pausas Sinergia" 
+          active={activeTab === 'breaks'} 
+          onClick={() => onTabChange('breaks')} 
+        />
+        
         <div className="my-4 border-t border-border-soft" />
-        <NavItem icon={<Settings size={20} />} label="Config. Cuántica" />
+        
+        <NavItem 
+          icon={<Settings size={20} />} 
+          label="Config. Cuántica" 
+          active={activeTab === 'config'} 
+          onClick={() => onTabChange('config')} 
+        />
       </nav>
 
       <div className="mt-auto pt-8 border-t border-border-soft relative z-10">
@@ -42,7 +81,7 @@ export const Sidebar: React.FC = () => {
           </div>
         </div>
         <button 
-          onClick={() => window.location.reload()} // Acción simple para demo
+          onClick={() => window.location.reload()}
           className="flex items-center gap-2 text-chaos-red hover:text-chaos-red/80 transition-colors font-bold text-xs uppercase tracking-widest"
         >
           <LogOut size={16} />
@@ -53,16 +92,17 @@ export const Sidebar: React.FC = () => {
   );
 };
 
-function NavItem({ icon, label, active = false }: { icon: React.ReactNode, label: string, active?: boolean }) {
+function NavItem({ icon, label, active = false, onClick }: { icon: React.ReactNode, label: string, active?: boolean, onClick: () => void }) {
   return (
     <motion.button
+      onClick={onClick}
       whileHover={{ x: 5 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 font-bold text-xs uppercase tracking-widest",
+        "flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 font-bold text-xs uppercase tracking-widest text-left w-full",
         active 
           ? "bg-primary text-white shadow-lg shadow-primary/20" 
-          : "hover:bg-bg-card-strong hover:text-text-main"
+          : "hover:bg-bg-card-strong hover:text-text-main text-text-muted"
       )}
     >
       {icon}

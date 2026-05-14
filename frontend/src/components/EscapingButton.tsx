@@ -11,16 +11,16 @@ interface EscapingButtonProps {
   children: React.ReactNode;
   isValid: boolean;
   type?: "button" | "submit" | "reset";
+  form?: string;
 }
 
-export const EscapingButton: React.FC<EscapingButtonProps> = ({ children, isValid, type = "submit" }) => {
+export const EscapingButton: React.FC<EscapingButtonProps> = ({ children, isValid, type = "submit", form }) => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [color, setColor] = useState('bg-indigo-600');
   const [isFixed, setIsFixed] = useState(false);
   const [isExhausted, setIsExhausted] = useState(false);
   const [timer, setTimer] = useState(5);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Effect to handle exhaustion timer once it starts escaping
   useEffect(() => {
@@ -78,6 +78,7 @@ export const EscapingButton: React.FC<EscapingButtonProps> = ({ children, isVali
       <motion.button
         ref={buttonRef}
         type={type}
+        form={form}
         animate={{ 
           x: pos.x, 
           y: pos.y,

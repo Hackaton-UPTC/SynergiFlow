@@ -1,18 +1,20 @@
 import React, { useMemo, useState } from 'react';
 import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Eye, EyeOff, LogIn, UserPlus, CheckCircle2, Loader2, Smile, Frown, Angry, Meh } from 'lucide-react';
-import { EscapingButton } from '../components/EscapingButton';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Angry, CheckCircle2, Eye, EyeOff, Frown, Loader2, LogIn, Meh, Shield, Smile, UserPlus } from 'lucide-react';
+import { EscapingButton } from './EscapingButton';
 
-interface LoginProps {
+type AuthMode = 'login' | 'register';
+
+interface AuthLoginProps {
   onLoginSuccess: (session: { username: string; token: string }) => void;
 }
 
-export default function Login({ onLoginSuccess }: LoginProps) {
+export function AuthLogin({ onLoginSuccess }: AuthLoginProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [mode, setMode] = useState<'login' | 'register'>('login');
+  const [mode, setMode] = useState<AuthMode>('login');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [mood, setMood] = useState<string | null>(null);
@@ -31,14 +33,14 @@ export default function Login({ onLoginSuccess }: LoginProps) {
     { name: 'Neutral', label: 'Neutral', icon: <Meh className="w-8 h-8" />, color: 'bg-amber-400' },
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setSuccess('');
 
     if (!canSubmit) {
       setErrorFlash(true);
-      setShakeKey((v) => v + 1);
-      setTimeout(() => setErrorFlash(false), 700);
+      setShakeKey((value) => value + 1);
+      window.setTimeout(() => setErrorFlash(false), 700);
       return;
     }
 
@@ -61,10 +63,10 @@ export default function Login({ onLoginSuccess }: LoginProps) {
         setTimeout(() => onLoginSuccess(nextSession), 1000);
       }
     } catch (err) {
-      console.error("Auth Error:", err);
+      console.error("Error de Autenticación:", err);
       setErrorFlash(true);
-      setShakeKey((v) => v + 1);
-      setTimeout(() => setErrorFlash(false), 700);
+      setShakeKey((value) => value + 1);
+      window.setTimeout(() => setErrorFlash(false), 700);
     } finally {
       setLoading(false);
     }
@@ -125,7 +127,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                   className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all placeholder:text-text-disabled"
                   placeholder="ej. el_elegido"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(event) => setUsername(event.target.value)}
                 />
               </div>
 
@@ -139,7 +141,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
                     className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-14 font-mono text-primary-light"
                     placeholder="••••••••"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                   />
                   <button
                     type="button"
