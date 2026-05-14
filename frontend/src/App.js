@@ -1,9 +1,12 @@
 import { useState } from "react";
+import Login from "./components/Login";
+import Onboarding from "./components/Onboarding";
 import "./App.scss";
 
 function App() {
   const [step, setStep] = useState("splash");
   const [progress, setProgress] = useState(7);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleProgressChange = (e) => {
     const sliderValue = Number(e.target.value);
@@ -18,6 +21,11 @@ function App() {
         setStep("login");
       }, 300);
     }
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+    setStep("onboarding");
   };
 
   return (
@@ -83,9 +91,34 @@ function App() {
       )}
 
       {step === "login" && (
+        <Login onSuccess={handleLoginSuccess} />
+      )}
+
+      {step === "onboarding" && isLoggedIn && (
+        <Onboarding onComplete={() => setStep("dashboard")} />
+      )}
+
+      {step === "onboarding" && !isLoggedIn && (
         <div className="screen placeholder-screen">
           <h1>Login</h1>
           <p>Loading desbloqueado correctamente.</p>
+          <button
+            className="onboarding-button"
+            type="button"
+            onClick={() => setStep("login")}
+          >
+            Volver al login
+          </button>
+        </div>
+      )}
+
+      {step === "dashboard" && isLoggedIn && (
+        <div className="screen onboarding-dashboard">
+          <div className="onboarding-dashboard-card">
+            <div className="onboarding-badge">Operación aprobada</div>
+            <h1>Dashboard Ejecutivo</h1>
+            <p>Sinergia operacional estabilizada.</p>
+          </div>
         </div>
       )}
     </div>
