@@ -13,19 +13,19 @@ export const MetricCard: React.FC<{ metric: AbsurdMetric }> = ({ metric }) => {
   return (
     <motion.div
       whileHover={{ y: -5, scale: 1.02 }}
-      className="bg-white/80 backdrop-blur-md rounded-3xl p-6 border border-slate-200 shadow-sm relative overflow-hidden group"
+      className="bg-bg-card backdrop-blur-md rounded-3xl p-6 border border-border-soft shadow-sm relative overflow-hidden group"
     >
       <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
         <HelpCircle size={48} />
       </div>
 
-      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{metric.title}</p>
+      <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">{metric.title}</p>
       
       <div className="flex items-end gap-2">
-        <h3 className="text-3xl font-black text-slate-900 tracking-tighter">
+        <h3 className="text-3xl font-black text-text-main tracking-tighter">
           {metric.value}
         </h3>
-        {metric.unit && <span className="text-xs font-bold text-slate-500 mb-1">{metric.unit}</span>}
+        {metric.unit && <span className="text-xs font-bold text-text-muted mb-1">{metric.unit}</span>}
       </div>
 
       <div className="flex items-center gap-2 mt-4">

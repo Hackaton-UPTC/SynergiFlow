@@ -50,10 +50,10 @@ export default function App() {
       const payload = response.data?.data;
 
       if (mode === 'register') {
-        setSuccess('Account created. Switch to login and use the same credentials.');
-        setSession(null);
-        localStorage.removeItem('synergiflow.session');
-        setMode('login');
+        const nextSession = { username: payload.user.username, token: payload.token };
+        setSession(nextSession);
+        localStorage.setItem('synergiflow.session', JSON.stringify(nextSession));
+        setSuccess('Account created. Accessing the void...');
       } else {
         if (payload?.token && payload?.user?.username) {
           const nextSession = { username: payload.user.username, token: payload.token };
@@ -62,7 +62,8 @@ export default function App() {
         }
         setSuccess(`Welcome back, ${payload?.user?.username ?? username.trim()}.`);
       }
-    } catch {
+    } catch (err) {
+      console.error("Auth Error:", err);
       setErrorFlash(true);
       setShakeKey((value) => value + 1);
       window.setTimeout(() => setErrorFlash(false), 700);

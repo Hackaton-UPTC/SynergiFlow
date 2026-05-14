@@ -5,7 +5,7 @@ import { MetricCard } from '../components/MetricCard';
 import { UselessChart } from '../components/UselessChart';
 import { AnnoyingPopup } from '../components/AnnoyingPopup';
 import { useDashboardData } from '../hooks/useDashboardData';
-import { Search, Plus, Bell, RefreshCcw } from 'lucide-react';
+import { Search, Plus, Bell, RefreshCcw, Zap } from 'lucide-react';
 
 export default function Dashboard() {
   const { metrics, activities, popups, closePopup } = useDashboardData();
