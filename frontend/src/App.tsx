@@ -3,7 +3,8 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Eye, EyeOff, LogIn, UserPlus, CheckCircle2, Loader2, Smile, Frown, Angry, Meh } from 'lucide-react';
 import { EscapingButton } from './components/EscapingButton';
-import './index.css';
+import Dashboard from './pages/Dashboard';
+import './index.scss';
 
 type AuthMode = 'login' | 'register';
 
@@ -70,11 +71,15 @@ export default function App() {
     }
   };
 
+  if (session) {
+    return <Dashboard />;
+  }
+
   return (
-    <div className="min-h-screen w-full bg-[#020617] text-slate-200 flex items-center justify-center p-6 font-sans selection:bg-indigo-500/30">
+    <div className="min-h-screen w-full bg-bg-main text-text-main flex items-center justify-center p-6 font-sans selection:bg-primary/30">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-900/20 rounded-full blur-[120px] animate-slow-pulse" />
-        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-blue-900/20 rounded-full blur-[120px] animate-slow-pulse" />
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] animate-slow-pulse" />
+        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-synergy-blue/20 rounded-full blur-[120px] animate-slow-pulse" />
       </div>
 
       <motion.main
@@ -84,31 +89,31 @@ export default function App() {
         transition={errorFlash ? { duration: 0.6 } : { duration: 0.25 }}
         className="max-w-md w-full relative z-10"
       >
-        <div className={`backdrop-blur-2xl p-8 rounded-[2.5rem] border shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-colors duration-300 ${errorFlash ? 'bg-red-950/50 border-red-500/60' : 'bg-slate-900/40 border-slate-800/50'}`}>
+        <div className={`backdrop-blur-2xl p-8 rounded-[2.5rem] border shadow-2xl transition-colors duration-300 ${errorFlash ? 'bg-chaos-red/20 border-chaos-red/60' : 'bg-bg-card border-border-soft'}`}>
           <header className="text-center mb-10">
             <motion.div
               animate={{ y: [0, -5, 0] }}
               transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-              className="inline-flex p-3 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 mb-4 shadow-lg shadow-indigo-500/20"
+              className="inline-flex p-3 rounded-2xl bg-enterprise-gradient mb-4 shadow-lg shadow-primary/20"
             >
               <Shield className="w-8 h-8 text-white" />
             </motion.div>
             <h1 className="text-4xl font-black tracking-tighter text-white mb-2 italic">SYNERGIFLOW</h1>
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">High-Friction Auth Protocol</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted">High-Friction Auth Protocol</p>
           </header>
 
-          <div className="grid grid-cols-2 gap-2 mb-6 p-1 rounded-2xl bg-slate-950/50 border border-slate-800">
+          <div className="grid grid-cols-2 gap-2 mb-6 p-1 rounded-2xl bg-black/20 border border-border-soft">
             <button
               type="button"
               onClick={() => setMode('login')}
-              className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-black uppercase tracking-[0.3em] transition-colors ${mode === 'login' ? 'bg-indigo-600 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+              className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-black uppercase tracking-[0.3em] transition-colors ${mode === 'login' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-text-muted hover:text-text-main'}`}
             >
               <LogIn size={14} /> Login
             </button>
             <button
               type="button"
               onClick={() => setMode('register')}
-              className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-black uppercase tracking-[0.3em] transition-colors ${mode === 'register' ? 'bg-indigo-600 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+              className={`flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-black uppercase tracking-[0.3em] transition-colors ${mode === 'register' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-text-muted hover:text-text-main'}`}
             >
               <UserPlus size={14} /> Register
             </button>
@@ -117,12 +122,12 @@ export default function App() {
           <form id="auth-form" onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-6">
               <div className="group">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 block mb-2 group-focus-within:text-indigo-400 transition-colors">Username</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1 block mb-2 group-focus-within:text-primary transition-colors">Username</label>
                 <input
                   type="text"
                   required
                   autoComplete="username"
-                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-700"
+                  className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all placeholder:text-text-disabled"
                   placeholder="alex"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -130,13 +135,13 @@ export default function App() {
               </div>
 
               <div className="group relative">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1 block mb-2 group-focus-within:text-indigo-400 transition-colors">Password</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-text-muted ml-1 block mb-2 group-focus-within:text-primary transition-colors">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
                     autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                    className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all pr-14 font-mono text-indigo-300"
+                    className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-14 font-mono text-primary-light"
                     placeholder="123456"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -144,7 +149,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-indigo-400 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -165,7 +170,7 @@ export default function App() {
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setMood(item.name)}
                       className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center justify-center gap-2 relative overflow-hidden group ${
-                        mood === item.name ? 'border-indigo-500 bg-indigo-500/20 shadow-[0_0_20px_rgba(99,102,241,0.3)]' : 'border-slate-800 bg-slate-900/50 hover:border-slate-600'
+                        mood === item.name ? 'border-primary bg-primary/20 shadow-[0_0_20px_rgba(255,92,0,0.3)]' : 'border-border-soft bg-black/20 hover:border-text-muted'
                       }`}
                     >
                       <div className={`p-2 rounded-xl text-white transition-transform duration-500 group-hover:scale-110 ${item.color}`}>{item.icon}</div>

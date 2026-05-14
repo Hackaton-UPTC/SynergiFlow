@@ -6,7 +6,7 @@ import { useBadValidation } from '../hooks/useBadValidation';
 import { RequirementItem } from '../components/RequirementItem';
 import { EmotionalCaptcha } from '../components/EmotionalCaptcha';
 import { EscapingButton } from '../components/EscapingButton';
-import '../index.css';
+import '../index.scss';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#020617] text-slate-200 flex items-center justify-center p-6 font-sans selection:bg-indigo-500/30">
+    <div className="min-h-screen w-full bg-bg-main text-text-main flex items-center justify-center p-6 font-sans selection:bg-primary/30">
       
       {/* Background Ambience */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -47,20 +47,20 @@ export default function Login() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full relative z-10"
       >
-        <div className="bg-slate-900/40 backdrop-blur-2xl p-8 rounded-[2.5rem] border border-slate-800/50 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]">
+        <div className="bg-bg-card backdrop-blur-2xl p-8 rounded-[2.5rem] border border-border-soft shadow-2xl">
           
           <header className="text-center mb-10">
             <motion.div 
               animate={{ y: [0, -5, 0] }}
               transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="inline-flex p-3 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 mb-4 shadow-lg shadow-indigo-500/20"
+              className="inline-flex p-3 rounded-2xl bg-enterprise-gradient mb-4 shadow-lg shadow-primary/20"
             >
               <Shield className="w-8 h-8 text-white" />
             </motion.div>
             <h1 className="text-4xl font-black tracking-tighter text-white mb-2 italic">
               SYNERGIFLOW
             </h1>
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted">
               High-Friction Auth Protocol
             </p>
           </header>
@@ -76,7 +76,7 @@ export default function Login() {
                   type="text"
                   required
                   autoComplete="off"
-                  className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-700"
+                  className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all placeholder:text-text-disabled"
                   placeholder="The_Chosen_One"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -92,7 +92,7 @@ export default function Login() {
                   <input
                     type={showPassword ? "text" : "password"}
                     required
-                    className="w-full bg-slate-950/50 border border-slate-800 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 outline-none transition-all pr-14 font-mono text-indigo-300"
+                    className="w-full bg-black/20 border border-border-soft rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-14 font-mono text-primary-light"
                     placeholder="••••••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

@@ -11,35 +11,35 @@ export default function Dashboard() {
   const { metrics, activities, popups, closePopup } = useDashboardData();
 
   return (
-    <div className="min-h-screen bg-slate-50 flex font-sans selection:bg-indigo-500/30 overflow-hidden">
+    <div className="min-h-screen bg-bg-main flex font-sans selection:bg-primary/30 overflow-hidden">
       <Sidebar />
 
       <main className="flex-1 flex flex-col relative h-screen overflow-y-auto">
         {/* Top Header */}
-        <header className="sticky top-0 z-20 bg-white/70 backdrop-blur-xl border-b border-slate-200 px-10 py-6 flex items-center justify-between">
+        <header className="sticky top-0 z-20 bg-bg-card/80 backdrop-blur-xl border-b border-border-soft px-10 py-6 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-black text-slate-900 tracking-tighter">
-              Welcome back, <span className="text-indigo-600 italic">Visionary</span>.
+              Welcome back, <span className="text-primary italic">Visionary</span>.
             </h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">
+            <p className="text-xs font-bold text-text-muted uppercase tracking-widest mt-1">
               Your current synergy levels are critical.
             </p>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="relative group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={16} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" size={16} />
               <input
                 type="text"
                 placeholder="Search the void..."
-                className="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-xl text-xs font-bold outline-none ring-2 ring-transparent focus:ring-indigo-500/20 transition-all w-64"
+                className="pl-10 pr-4 py-2 bg-black/20 border-none rounded-xl text-xs font-bold outline-none ring-2 ring-transparent focus:ring-primary/20 transition-all w-64 text-text-main"
               />
             </div>
             <button className="p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-indigo-600 transition-colors relative">
               <Bell size={20} />
               <span className="absolute top-0 right-0 w-2 h-2 bg-rose-500 rounded-full border-2 border-white" />
             </button>
-            <button className="flex items-center gap-2 px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10">
+            <button className="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/10">
               <Plus size={16} />
               <span>Manifest New Goal</span>
             </button>
@@ -61,11 +61,11 @@ export default function Dashboard() {
             
             {/* Charts Section */}
             <div className="lg:col-span-2 space-y-8">
-              <div className="bg-white rounded-[2.5rem] p-8 border border-slate-200 shadow-sm">
+              <div className="bg-bg-card rounded-[2.5rem] p-8 border border-border-soft shadow-sm">
                 <div className="flex items-center justify-between mb-8">
                   <div>
-                    <h3 className="text-xl font-black text-slate-900 tracking-tight">Existential Throughput</h3>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Synergy vs Dread Index</p>
+                    <h3 className="text-xl font-black text-text-main tracking-tight">Existential Throughput</h3>
+                    <p className="text-xs font-bold text-text-muted uppercase tracking-widest">Synergy vs Dread Index</p>
                   </div>
                   <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-xl">
                     <button className="px-3 py-1.5 bg-white shadow-sm rounded-lg text-[10px] font-black text-indigo-600">LIVE</button>
@@ -76,7 +76,7 @@ export default function Dashboard() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-[2rem] p-8 text-white shadow-xl shadow-indigo-500/20 relative overflow-hidden group">
+                <div className="bg-enterprise-gradient rounded-[2rem] p-8 text-white shadow-xl shadow-primary/20 relative overflow-hidden group">
                   <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700" />
                   <h4 className="text-sm font-black uppercase tracking-widest mb-4 opacity-80">Alignment Goal</h4>
                   <div className="text-4xl font-black mb-2">99.8%</div>
@@ -86,12 +86,12 @@ export default function Dashboard() {
                   </button>
                 </div>
 
-                <div className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
-                   <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 mb-4">
+                <div className="bg-bg-card rounded-[2rem] p-8 border border-border-soft shadow-sm flex flex-col justify-center items-center text-center">
+                   <div className="w-16 h-16 bg-compliance-yellow/20 rounded-full flex items-center justify-center text-compliance-yellow mb-4">
                      <Zap size={32} />
                    </div>
-                   <h4 className="text-sm font-black uppercase tracking-widest text-slate-900">Buzzword Density</h4>
-                   <p className="text-xs text-slate-400 font-medium mt-2">Current environment is 42% buzzword compliant.</p>
+                   <h4 className="text-sm font-black uppercase tracking-widest text-text-main">Buzzword Density</h4>
+                   <p className="text-xs text-text-muted font-medium mt-2">Current environment is 42% buzzword compliant.</p>
                 </div>
               </div>
             </div>
