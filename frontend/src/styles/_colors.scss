@@ -1,0 +1,69 @@
+/* SynergiFlow™ Institutional Colors */
+/* Enterprise Friction as a Service */
+
+:root {
+  /* Brand */
+  --color-primary: #ff5c00;
+  --color-primary-light: #ff8c42;
+  --color-primary-dark: #c2410c;
+
+  /* Backgrounds */
+  --color-bg-main: #0f172a;
+  --color-bg-card: rgba(255, 255, 255, 0.08);
+  --color-bg-card-strong: rgba(255, 255, 255, 0.12);
+
+  /* Text */
+  --color-text-main: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-text-disabled: rgba(255, 255, 255, 0.35);
+
+  /* Corporate chaos */
+  --color-synergy-blue: #38bdf8;
+  --color-bureaucracy-purple: #a855f7;
+  --color-compliance-yellow: #facc15;
+  --color-error-red: #dc2626;
+  --color-error-dark: #450a0a;
+
+  /* Borders and shadows */
+  --color-border-soft: rgba(255, 255, 255, 0.22);
+  --color-border-dashed: rgba(255, 255, 255, 0.35);
+  --color-shadow-main: rgba(0, 0, 0, 0.35);
+
+  /* Gradients */
+  --gradient-enterprise: linear-gradient(
+    135deg,
+    #ff5c00,
+    #a855f7,
+    #38bdf8
+  );
+
+  --gradient-danger: linear-gradient(
+    135deg,
+    #450a0a,
+    #7f1d1d,
+    #dc2626
+  );
+}
+
+/* Optional SCSS variables */
+$color-primary: #ff5c00;
+$color-primary-light: #ff8c42;
+$color-primary-dark: #c2410c;
+
+$color-bg-main: #0f172a;
+$color-bg-card: rgba(255, 255, 255, 0.08);
+$color-bg-card-strong: rgba(255, 255, 255, 0.12);
+
+$color-text-main: #ffffff;
+$color-text-muted: rgba(255, 255, 255, 0.6);
+$color-text-disabled: rgba(255, 255, 255, 0.35);
+
+$color-synergy-blue: #38bdf8;
+$color-bureaucracy-purple: #a855f7;
+$color-compliance-yellow: #facc15;
+$color-error-red: #dc2626;
+$color-error-dark: #450a0a;
+
+$color-border-soft: rgba(255, 255, 255, 0.22);
+$color-border-dashed: rgba(255, 255, 255, 0.35);
+$color-shadow-main: rgba(0, 0, 0, 0.35);
