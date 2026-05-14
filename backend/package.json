@@ -1,7 +1,7 @@
 {
-  "name": "docker_node_mongo_starter",
+  "name": "synergiflow-backend",
   "version": "1.0.0",
-  "description": "docker starter with node js and mongodb services",
+  "description": "backend auth service for SynergiFlow",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -20,6 +20,7 @@
     "lodash": "^4.17.13",
     "mongodb": "^3.0.7",
     "mongoose": "^6.0.9",
+    "jsonwebtoken": "^9.0.2",
     "simple-node-logger": "^18.12.23",
     "validator": "^13.7.0"
   },
