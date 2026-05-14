@@ -13,9 +13,10 @@ type TabId = 'overview' | 'stakeholders' | 'alignments' | 'vaporware' | 'breaks'
 interface SidebarProps {
   activeTab: TabId;
   onTabChange: (tab: TabId) => void;
+  onLogout?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, onLogout }) => {
   return (
     <aside className="w-72 bg-bg-main text-text-muted p-8 flex flex-col border-r border-border-soft relative overflow-hidden h-screen sticky top-0">
       {/* Acento decorativo */}
@@ -81,7 +82,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
           </div>
         </div>
         <button 
-          onClick={() => window.location.reload()}
+          onClick={onLogout ?? (() => window.location.reload())}
           className="flex items-center gap-2 text-chaos-red hover:text-chaos-red/80 transition-colors font-bold text-xs uppercase tracking-widest"
         >
           <LogOut size={16} />

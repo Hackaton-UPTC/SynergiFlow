@@ -9,7 +9,11 @@ import { Search, Plus, Bell, RefreshCcw, Zap, Users, Target, BarChart2, Coffee, 
 
 type TabId = 'overview' | 'stakeholders' | 'alignments' | 'vaporware' | 'breaks' | 'config';
 
-export default function Dashboard() {
+interface DashboardProps {
+  onLogout?: () => void;
+}
+
+export default function Dashboard({ onLogout }: DashboardProps) {
   const [activeTab, setActiveTab] = useState<TabId>('overview');
   const [showNotifications, setShowNotifications] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -137,7 +141,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-bg-main flex font-sans selection:bg-primary/30 overflow-hidden">
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} onLogout={onLogout} />
 
       <main className="flex-1 flex flex-col relative h-screen overflow-y-auto">
         <header className="sticky top-0 z-20 bg-bg-card/80 backdrop-blur-xl border-b border-border-soft px-10 py-6 flex items-center justify-between">
@@ -196,13 +200,13 @@ export default function Dashboard() {
               </AnimatePresence>
             </div>
 
-            <button 
-              onClick={() => alert("Meta manifestada. Espere 4 a 6 meses para la aprobación espiritual.")}
-              className="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/10 active:scale-95"
-            >
-              <Plus size={16} />
-              <span>Manifestar Meta</span>
-            </button>
+          <button
+            onClick={onLogout ?? (() => alert('Meta manifestada. Espere 4 a 6 meses para la aprobación espiritual.'))}
+            className="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/10 active:scale-95"
+          >
+            <Plus size={16} />
+            <span>Logout</span>
+          </button>
           </div>
         </header>
 
